@@ -8,7 +8,7 @@ import (
 
 // Converts a rune to an int based on 'a' = 1 and 'A' = 27
 func char2Int(s rune) int {
-	if s >= 97 && s <= 122 {
+	if s >= 'a' && s <= 'z' {
 		return int(s - 96)
 	} else {
 		return int(s - 65 + 27)
@@ -31,7 +31,7 @@ func Ex1() {
 			}
 		}
 	}
-	fmt.Println("Result1: ", sum)
+	fmt.Println("Ex1: ", sum)
 }
 
 func Ex2() {
@@ -51,5 +51,5 @@ func Ex2() {
 		}
 		i++
 	}
-	fmt.Println("Result2: ", sum)
+	fmt.Println("Ex2: ", sum)
 }

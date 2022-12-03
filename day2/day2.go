@@ -18,20 +18,18 @@ const (
 	Win
 )
 
-func wins(r1 int, r2 int) int {
+func score(player int, otherPlayer int) int {
+	winLoseTable := [][]int{{Rock, Sissor}, {Sissor, Paper}, {Paper, Rock}}
 
-	score := r1 + 1
-
-	if r1 == Rock && r2 == Sissor {
-		return score + 6
-	} else if r1 == Sissor && r2 == Paper {
-		return score + 6
-	} else if r1 == Paper && r2 == Rock {
-		return score + 6
-	} else if r1 == r2 {
-		return score + 3
+	for _, winLose := range winLoseTable {
+		if player == winLose[0] && otherPlayer == winLose[1] {
+			return player + 7
+		}
 	}
-	return score
+	if player == otherPlayer {
+		return player + 4
+	}
+	return player + 1
 }
 
 func Ex1() {
@@ -44,7 +42,7 @@ func Ex1() {
 
 		otherPlay := int(line[0][0]) - int('A')
 		myPlay := int(line[1][0]) - int('X')
-		total += wins(myPlay, otherPlay)
+		total += score(myPlay, otherPlay)
 	}
 	fmt.Println("Ex1: ", total)
 }
@@ -57,18 +55,18 @@ func Ex2() {
 		strIn := scanner.Text()
 		line := strings.Split(strIn, " ")
 
-		play := 0
+		myPlay := 0
 		otherPlay := int(line[0][0]) - int('A')
-		myPlay := int(line[1][0]) - int('X')
-		if myPlay == Draw {
-			play = otherPlay
-		} else if myPlay == Win {
-			play = (otherPlay + 1) % 3
-		} else if myPlay == Lose {
-			play = (otherPlay + 2) % 3
+		gameResult := int(line[1][0]) - int('X')
+		switch gameResult {
+		case Draw:
+			myPlay = otherPlay
+		case Win:
+			myPlay = (otherPlay + 1) % 3
+		case Lose:
+			myPlay = (otherPlay + 2) % 3
 		}
-
-		total += wins(play, otherPlay)
+		total += score(myPlay, otherPlay)
 	}
 	fmt.Println("Ex2: ", total)
 }

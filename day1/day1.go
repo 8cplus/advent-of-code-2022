@@ -13,16 +13,15 @@ func load() [][]int {
 	var listOfelfs [][]int
 	listOfelfs = append(listOfelfs, []int{})
 
-	i := 0
 	for scanner.Scan() {
 		strIn := scanner.Text()
 		if strIn == "" {
-			i++
 			listOfelfs = append(listOfelfs, []int{})
-			continue
+		} else {
+			cal := Atoi(strIn)
+			lastIndex := len(listOfelfs) - 1
+			listOfelfs[lastIndex] = append(listOfelfs[lastIndex], cal)
 		}
-		cal := Atoi(strIn)
-		listOfelfs[i] = append(listOfelfs[i], cal)
 	}
 
 	return listOfelfs
@@ -49,7 +48,6 @@ func Ex2() {
 	listOfElfs := load()
 
 	sumOfeachElf := make([]int, len(listOfElfs))
-
 	for i := range listOfElfs {
 		sum := 0
 		for _, cal := range listOfElfs[i] {
