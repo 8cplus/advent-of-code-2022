@@ -1,7 +1,7 @@
 package day1
 
 import (
-	. "adventofcode2022/Tools"
+	. "adventofcode2022/tools"
 	"fmt"
 	"sort"
 )

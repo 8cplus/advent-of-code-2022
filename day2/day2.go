@@ -1,7 +1,7 @@
 package day2
 
 import (
-	. "adventofcode2022/Tools"
+	. "adventofcode2022/tools"
 	"fmt"
 	"strings"
 )
