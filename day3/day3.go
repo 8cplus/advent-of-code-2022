@@ -21,12 +21,9 @@ func Ex1() {
 	sum := 0
 	for scanner.Scan() {
 		rucksack := scanner.Text()
-		compart1 := rucksack[:len(rucksack)/2]
-		compart2 := rucksack[len(rucksack)/2:]
-		for _, elem := range compart1 {
-			if strings.ContainsRune(compart2, elem) {
-				repeated := char2Int(elem)
-				sum += repeated
+		for _, elem := range rucksack[:len(rucksack)/2] {
+			if strings.ContainsRune(rucksack[len(rucksack)/2:], elem) {
+				sum += char2Int(elem)
 				break
 			}
 		}
