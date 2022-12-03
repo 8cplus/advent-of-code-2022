@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Convertes a rune to an int based on 'a' = 1 and 'A' = 27
+// Converts a rune to an int based on 'a' = 1 and 'A' = 27
 func char2Int(s rune) int {
 	if s >= 97 && s <= 122 {
 		return int(s - 96)
