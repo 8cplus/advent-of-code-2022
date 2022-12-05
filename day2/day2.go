@@ -18,9 +18,9 @@ const (
 	Win
 )
 
-func score(player int, otherPlayer int) int {
-	winLoseTable := [][]int{{Rock, Sissor}, {Sissor, Paper}, {Paper, Rock}}
+var winLoseTable = [][]int{{Rock, Sissor}, {Sissor, Paper}, {Paper, Rock}}
 
+func score(player int, otherPlayer int) int {
 	for _, winLose := range winLoseTable {
 		if player == winLose[0] && otherPlayer == winLose[1] {
 			return player + 7
