@@ -53,16 +53,14 @@ func crateMove(moveFunc func(int, int, int, [][]byte)) {
 		// splited string - move 1 from 3 to 5
 		moveFunc(Atoi(command[1]), Atoi(command[3])-1, Atoi(command[5])-1, pilesOfCrates)
 	}
+
 	for _, pileOfCrates := range pilesOfCrates {
 		fmt.Printf("%c", pileOfCrates[0])
 	}
 }
 
-func Ex1() {
+func Ex1andEx2() {
 	crateMove(moveFuncEx1)
 	fmt.Println()
-}
-
-func Ex2() {
 	crateMove(moveFuncEx2)
 }
