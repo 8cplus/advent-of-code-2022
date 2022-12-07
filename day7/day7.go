@@ -33,34 +33,30 @@ func (d *directory) spaceToFree(smallestDir, spaceNeeded int) int {
 	return smallestDir
 }
 
-func applyCommands(scanner *bufio.Scanner, currentDir *directory) (size int) {
+func (d *directory) applyCommands(scanner *bufio.Scanner) (size int) {
 	for scanner.Scan() {
 		cmd := strings.Split(scanner.Text(), " ")
 		if cmd[0][0:1] == "$" {
-			if cmd[1] == "cd" {
-				if cmd[2] == ".." { // cd ..
-					return currentDir.sizeOfFiles
-				} else { // cd folder
-					currentDir.sizeOfFiles += applyCommands(scanner, currentDir.subDir[cmd[2]])
-				}
+			if cmd[1] == "cd" && cmd[2] == ".." { // cd ..
+				return d.sizeOfFiles
+			} else if cmd[1] == "cd" { // cd folder
+				d.sizeOfFiles += d.subDir[cmd[2]].applyCommands(scanner)
 			}
-		} else {
-			if cmd[0] == "dir" { // directory
-				currentDir.subDir[cmd[1]] = &directory{subDir: make(map[string]*directory)}
-			} else { // file
-				currentDir.sizeOfFiles += Atoi(cmd[0])
-			}
+		} else if cmd[0] == "dir" { // directory
+			d.subDir[cmd[1]] = &directory{subDir: make(map[string]*directory)}
+		} else { // file
+			d.sizeOfFiles += Atoi(cmd[0])
 		}
 	}
-	return currentDir.sizeOfFiles
+	return d.sizeOfFiles
 }
 
 func Ex1andEx2() {
 	scanner := LoadFile("input/input7.txt")
-	scanner.Scan() // first cd /
+	scanner.Scan() // cd /
 	root := &directory{subDir: make(map[string]*directory)}
 
-	applyCommands(scanner, root)
+	root.applyCommands(scanner)
 	fmt.Println("Ex1: ", root.sumSizesLessEqThan(100000))
 	fmt.Println("Ex2: ", root.spaceToFree(70000000, 30000000-(70000000-root.sizeOfFiles)))
 }
