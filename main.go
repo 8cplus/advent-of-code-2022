@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventofcode2022/day6"
+	"adventofcode2022/day7"
 	"fmt"
 	"time"
 )
@@ -20,9 +20,11 @@ func main() {
 	fmt.Println("\n################### Day4 #########################")
 	day4.Ex1andEx2()
 	fmt.Println("\n################### Day5 #########################")
-	day5.Ex1andEx2()*/
+	day5.Ex1andEx2()
 	fmt.Println("\n################### Day6 #########################")
-	day6.Ex1andEx2()
+	day6.Ex1andEx2()*/
+	fmt.Println("\n################### Day7 #########################")
+	day7.Ex1andEx2()
 
 	fmt.Println("\nTime: ", time.Since(start))
 }
