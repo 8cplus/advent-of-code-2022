@@ -51,15 +51,12 @@ func treeScore(pos int, grid []int) (left, right int) {
 	return left, right
 }
 
-func getHighestScenicScore(grid, gridT [][]int) int {
-	score := 0
+func getHighestScenicScore(grid, gridT [][]int) (score int) {
 	for i := 1; i < len(grid[0])-1; i++ {
 		for j := 1; j < len(grid)-1; j++ {
 			left, right := treeScore(j, grid[i])
 			up, down := treeScore(i, gridT[j])
-			if left*right*up*down > score {
-				score = left * right * up * down
-			}
+			score = Max(score, left*right*up*down)
 		}
 	}
 	return score
