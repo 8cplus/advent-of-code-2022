@@ -117,6 +117,13 @@ func Atoi(a string) int {
 	return i
 }
 
+func AtoiRune(a rune) int {
+	if a < '0' || a > '9' {
+		panic("Cannot convert rune to int")
+	}
+	return int(a - '0')
+}
+
 func LoadFile(filepath string) *bufio.Scanner {
 	file, err := os.Open(filepath)
 	if err != nil {

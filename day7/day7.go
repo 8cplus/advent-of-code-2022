@@ -12,8 +12,7 @@ type directory struct {
 	sizeOfFiles int
 }
 
-func (d *directory) sumSizesLessEqThan(less int) int {
-	size := 0
+func (d *directory) sumSizesLessEqThan(less int) (size int) {
 	for _, sub := range d.subDir {
 		size += sub.sumSizesLessEqThan(less)
 	}
@@ -33,7 +32,7 @@ func (d *directory) spaceToFree(smallestDir, spaceNeeded int) int {
 	return smallestDir
 }
 
-func (d *directory) applyCommands(scanner *bufio.Scanner) (size int) {
+func (d *directory) applyCommands(scanner *bufio.Scanner) int {
 	for scanner.Scan() {
 		cmd := strings.Split(scanner.Text(), " ")
 		if cmd[0][0:1] == "$" {
