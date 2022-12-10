@@ -63,7 +63,7 @@ func Ex2() {
 			fmt.Println()
 		}
 		if drawSprite(pixel%40, checkCpuState(pixel+1, cpuState)) {
-			fmt.Print("#")
+			fmt.Print("\u2588")
 		} else {
 			fmt.Print(" ")
 		}
