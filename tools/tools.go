@@ -72,6 +72,11 @@ func (xy *XY) Max() int {
 	return xy.Y
 }
 
+func (a *XY) Add(b XY) {
+	a.X += b.X
+	a.Y += b.Y
+}
+
 func (xy *XY) Min() int {
 	if xy.X < xy.Y {
 		return xy.X
@@ -79,8 +84,12 @@ func (xy *XY) Min() int {
 	return xy.Y
 }
 
-func (xy1 *XY) Distance(xy2 XY) XY {
+func (xy1 *XY) Dist(xy2 XY) XY {
 	return XY{xy1.X - xy2.X, xy1.Y - xy2.Y}
+}
+
+func (xy1 *XY) AbsDist(xy2 XY) XY {
+	return XY{Abs(xy1.X - xy2.X), Abs(xy1.Y - xy2.Y)}
 }
 
 type XYZ struct {
@@ -89,11 +98,11 @@ type XYZ struct {
 	Z int
 }
 
-func (xyz1 *XYZ) Distance(xyz2 XYZ) XYZ {
+func (xyz1 *XYZ) Dist(xyz2 XYZ) XYZ {
 	return XYZ{xyz1.X - xyz2.X, xyz1.Y - xyz2.Y, xyz1.Z - xyz2.Z}
 }
 
-func EqualDistance(xyz1 XYZ, xyz2 XYZ) bool {
+func EqualDist(xyz1 XYZ, xyz2 XYZ) bool {
 
 	if xyz1.X == xyz2.X && xyz1.Y == xyz2.Y && xyz1.Z == xyz2.Z {
 		return true
