@@ -30,13 +30,11 @@ func drawSprite(x, sprite int) bool {
 	return false
 }
 
-func Ex1andEx2() {
+func getCpuState() []cpu {
 	scanner := LoadFile("input/input10.txt")
-
 	cycle := 1
 	x := 1
 	cpuState := []cpu{{x: 1, cycle: 1}}
-
 	for scanner.Scan() {
 		strIn := scanner.Text()
 		if strIn == "noop" {
@@ -47,12 +45,19 @@ func Ex1andEx2() {
 		cycle += 2
 		cpuState = append(cpuState, cpu{cycle: cycle, x: x})
 	}
+	return cpuState
+}
+func Ex1() {
+	cpuState := getCpuState()
 	signalStrenth := 0
 	for _, c := range []int{20, 60, 100, 140, 180, 220} {
 		signalStrenth += c * checkCpuState(c, cpuState)
 	}
 	fmt.Println("Ex1: ", signalStrenth)
-	// Ex2
+}
+
+func Ex2() {
+	cpuState := getCpuState()
 	for pixel := 0; pixel < 240; pixel++ {
 		if pixel > 0 && pixel%40 == 0 {
 			fmt.Println()

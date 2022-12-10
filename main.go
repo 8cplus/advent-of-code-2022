@@ -30,7 +30,8 @@ func main() {
 	fmt.Println("\n################### Day9 #########################")
 	day9.Ex1andEx2()*/
 	fmt.Println("\n################### Day10 ########################")
-	day10.Ex1andEx2()
+	day10.Ex1()
+	day10.Ex2()
 
 	fmt.Println("\nTime: ", time.Since(start))
 }
