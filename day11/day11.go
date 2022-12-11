@@ -10,9 +10,9 @@ import (
 type monkeyOps struct {
 	monkey                int
 	startingItems         []int
-	operator, rightOp     string
 	divisibleBy           int
 	throwTrue, throwFalse int
+	calcWorryLevel        func(worryLevel int) int
 }
 
 func getMonkeysOps() []monkeyOps {
@@ -35,8 +35,19 @@ func getMonkeysOps() []monkeyOps {
 		// Operation
 		scanner.Scan()
 		ops := strings.Split(scanner.Text(), " ")
-		monkey.rightOp = ops[7]
-		monkey.operator = ops[6]
+		if ops[7] == "old" {
+			if ops[6] == "*" {
+				monkey.calcWorryLevel = func(old int) int { return old * old }
+			} else {
+				monkey.calcWorryLevel = func(old int) int { return old + old }
+			}
+		} else {
+			if ops[6] == "*" {
+				monkey.calcWorryLevel = func(old int) int { return old * Atoi(ops[7]) }
+			} else {
+				monkey.calcWorryLevel = func(old int) int { return old + Atoi(ops[7]) }
+			}
+		}
 		// Test
 		scanner.Scan()
 		monkey.divisibleBy = Atoi(strings.Split(scanner.Text(), " ")[5])
@@ -53,26 +64,13 @@ func getMonkeysOps() []monkeyOps {
 	return monkeys
 }
 
-func calcWorryLevel(old int, operator, rightOp string) int {
-	right := 0
-	if rightOp == "old" {
-		right = old
-	} else {
-		right = Atoi(rightOp)
-	}
-	if operator == "*" {
-		return old * right
-	}
-	return old + right
-}
-
 func calcMonkeyBusiness(rounds int, monkeys []monkeyOps, reduceStress func(worryLevel int) int) int {
 
 	inspections := make([]int, len(monkeys))
 	for i := 1; i <= rounds; i++ {
 		for m, monkey := range monkeys {
 			for _, item := range monkey.startingItems {
-				worryLevel := reduceStress(calcWorryLevel(item, monkey.operator, monkey.rightOp))
+				worryLevel := reduceStress(monkey.calcWorryLevel(item))
 				if worryLevel%monkey.divisibleBy == 0 {
 					monkeys[monkey.throwTrue].startingItems = append(monkeys[monkey.throwTrue].startingItems, worryLevel)
 				} else {
