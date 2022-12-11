@@ -144,3 +144,22 @@ func LoadFile(filepath string) *bufio.Scanner {
 
 	return scanner
 }
+
+// greatest common divisor (GCD) via Euclidean algorithm
+func GCD(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+// find Least Common Multiple (LCM) via GCD
+func LCM(integers []int) int {
+	if len(integers) > 1 {
+		integers[1] = integers[0] * integers[1] / GCD(integers[0], integers[1])
+		integers[0] = LCM(integers[1:])
+	}
+	return integers[0]
+}
